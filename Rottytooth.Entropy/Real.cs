@@ -13,7 +13,7 @@ namespace Rottytooth.Entropy
 
         private static readonly RNGCryptoServiceProvider Crypto;
 
-        public static readonly float MinMutation = 0.001F;
+        public static readonly float MinMutation = 0F;
         public static readonly float MaxMutation = 100F;
 
         [Obsolete]
@@ -29,10 +29,17 @@ namespace Rottytooth.Entropy
             set;
         }
 
+        public static bool RelativeMutation
+        {
+            get;
+            set;
+        }
+
         static Real()
         {
 //            Tolerance = 70; // 0 to 255
             MutationRate = 2F;
+            RelativeMutation = false;
             Crypto = new RNGCryptoServiceProvider();
         }
 
@@ -55,17 +62,19 @@ namespace Rottytooth.Entropy
 //            if ((int)mutate[0] >= Tolerance) return;
 
             byte[] mutateAmount = new byte[1];
-            Crypto.GetNonZeroBytes(mutateAmount);
+            Crypto.GetBytes(mutateAmount);
 
-            byte[] positive = new byte[1];
-            Crypto.GetNonZeroBytes(positive);
+            float changeAmount = (float) mutateAmount[0];
+            changeAmount = (127 - changeAmount) / 128;
 
-            bool isNegative = ((float) positive[0] < 255.0/2.0);
-
-            float changeAmount = MutationRate / (float) mutateAmount[0];
-            if (isNegative) changeAmount = 0 - changeAmount;
-
-            _local += changeAmount;
+            if (Real.RelativeMutation)
+            {
+                _local *= (float)(1 + MutationRate * Math.Tanh(changeAmount)/10);
+            }
+            else
+            {
+                _local += MutationRate * (changeAmount);
+            }
         }
 
         public static implicit operator Real(float s)

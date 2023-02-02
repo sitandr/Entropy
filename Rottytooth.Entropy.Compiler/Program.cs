@@ -40,17 +40,23 @@ namespace Rottytooth.Entropy
                 _debugMode = true;
             }
 
+            if (arguments.ContainsKey("/r"))
+            {
+                Real.RelativeMutation = true;
+            }
+
             if (arguments.ContainsKey("/m"))
             {
                 float mutRate = 0;
 
                 try
                 {
-                    mutRate = Convert.ToSingle(arguments["/m"]);
+                    mutRate = float.Parse(arguments["/m"], System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Invalid mutation rate provided");
+                    Console.WriteLine(ex);
                     PrintHelp();
                     return -1;
                 }
@@ -137,8 +143,9 @@ namespace Rottytooth.Entropy
             Console.WriteLine("\t/c\tTranslate to C#, but do not compile");
             Console.WriteLine("\t/h /?\tPrint this message");
             Console.WriteLine("\t/m num\tSet mutation rate to num, where num is a value between " + Real.MinMutation.ToString() +" and " + Real.MaxMutation.ToString() + ", default is 2.");
+            Console.WriteLine("\t/r\tSet mutation type as relative (each get will cause mutation_rate·10% change)");
         }
-
+        
         private static Dictionary<string, string> LoadParameters(string[] args)
         {
             Dictionary<string, string> arguments = new Dictionary<string, string>();

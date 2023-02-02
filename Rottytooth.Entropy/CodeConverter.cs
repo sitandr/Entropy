@@ -275,7 +275,12 @@ namespace Rottytooth.Entropy
             // kind of a round-about way of getting the value here, but is good enough for now
             // FIXME: let's make this less confusing
             header.AppendLine("\tRottytooth.Entropy.Real.MutationRate = " +
-                              Rottytooth.Entropy.Real.MutationRate.ToString() + "F;");
+                              Rottytooth.Entropy.Real.MutationRate.ToString(System.Globalization.CultureInfo.InvariantCulture)+ "F;");
+            
+            if (Rottytooth.Entropy.Real.RelativeMutation)
+            {
+                header.AppendLine("\tRottytooth.Entropy.Real.RelativeMutation = true;");
+            }
             header.AppendLine(constDeclarePlaceholder); // place holder for string variables
             return header.ToString();
         }
