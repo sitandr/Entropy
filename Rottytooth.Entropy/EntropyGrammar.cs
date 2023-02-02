@@ -35,6 +35,7 @@ namespace Rottytooth.Entropy
             NonTerminal statement = new NonTerminal("statement"); //, typeof(StatementNode));
 
             NonTerminal printStatement = new NonTerminal("printStatement");
+            NonTerminal printlnStatement = new NonTerminal("printlnStatement");
             NonTerminal ifStatement = new NonTerminal("ifStatement");//, typeof(IfStatementNode));
             NonTerminal whileLoop = new NonTerminal("whileLoop");
             NonTerminal expression = new NonTerminal("expression"); //, typeof(ExpressionNode));
@@ -76,7 +77,7 @@ namespace Rottytooth.Entropy
             //<StatementList> ::= <Statement>*
             statementList.Rule = MakeStarRule(statementList, null, statement);
 
-            statement.Rule = emptyStatement | printStatement | ifStatement
+            statement.Rule = emptyStatement | printStatement | printlnStatement | ifStatement
                 | whileLoop
                 | localVariableDeclaration | assignment;
 
@@ -84,6 +85,7 @@ namespace Rottytooth.Entropy
 
 //            printStatement.Rule = ToTerm("print") + (stringLiteral | charLiteral) + ";";
             printStatement.Rule = ToTerm("print") + expression + ";";
+            printlnStatement.Rule = ToTerm("println") + expression + ";";
 
             //<IfStatement> ::= "if" <Expression> "[" <StatementList> "]"
             ifStatement.Rule = ToTerm("if") + expression + "[" + statementList + "]";

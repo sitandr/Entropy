@@ -65,6 +65,15 @@ namespace Rottytooth.Entropy
                     retProgram.AppendLine(");");
                     break;
 
+                case "printlnStatement":
+                    retProgram.Append("Console.WriteLine(");
+                    foreach (ParseTreeNode subNode in currentNode.ChildNodes)
+                    {
+                        BuildProgram(subNode, retProgram, constDeclarations);
+                    }
+                    retProgram.AppendLine(");");
+                    break;
+
                 case "ifStatement":
                     //Console.WriteLine("reached if statement");
                     BuildIfStatement(currentNode, retProgram, constDeclarations);
