@@ -128,6 +128,21 @@ namespace Rottytooth.Entropy
             return (a.Value + 1F);
         }
 
+        public static Real operator *(Real a, Real b)
+        {
+            return (a.Value*b.Value);
+        }
+
+        public static Real operator /(Real a, Real b)
+        {
+            return (a.Value / b.Value);
+        }
+
+        public static implicit operator Char(Real s)
+        {
+            return new Char { local = s};
+        }
+
         public override string ToString()
         {
             return this.Value.ToString();

@@ -8,7 +8,7 @@ namespace Rottytooth.Entropy
     [System.Diagnostics.DebuggerDisplay("{Value}")]
     public class Char
     {
-        private Real local;
+        public Real local;
 
         public char Value
         {
