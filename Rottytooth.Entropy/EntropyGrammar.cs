@@ -36,6 +36,7 @@ namespace Rottytooth.Entropy
 
             NonTerminal printStatement = new NonTerminal("printStatement");
             NonTerminal printlnStatement = new NonTerminal("printlnStatement");
+            NonTerminal roundStatement = new NonTerminal("roundStatement");
             NonTerminal ifStatement = new NonTerminal("ifStatement");//, typeof(IfStatementNode));
             NonTerminal whileLoop = new NonTerminal("whileLoop");
             NonTerminal expression = new NonTerminal("expression"); //, typeof(ExpressionNode));
@@ -86,6 +87,7 @@ namespace Rottytooth.Entropy
 //            printStatement.Rule = ToTerm("print") + (stringLiteral | charLiteral) + ";";
             printStatement.Rule = ToTerm("print") + expression + ";";
             printlnStatement.Rule = ToTerm("println") + expression + ";";
+            roundStatement.Rule = ToTerm("round") + "(" + expression + ")";
 
             //<IfStatement> ::= "if" <Expression> "[" <StatementList> "]"
             ifStatement.Rule = ToTerm("if") + expression + "[" + statementList + "]";
@@ -104,7 +106,7 @@ namespace Rottytooth.Entropy
             //<Expression> ::= <number> | <variable> | <string>
             //  | <Expression> <BinaryOperator> <Expression>
             //  | "(" <Expression> ")"
-            expression.Rule = number | variable_id | stringLiteral | charLiteral
+            expression.Rule = number | variable_id | stringLiteral | charLiteral | roundStatement
                 | expression + binaryOperator + expression
                 | conditionalExpression 
                 | "(" + expression + ")";

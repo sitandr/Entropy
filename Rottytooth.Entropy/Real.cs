@@ -65,11 +65,11 @@ namespace Rottytooth.Entropy
             Crypto.GetBytes(mutateAmount);
 
             float changeAmount = (float) mutateAmount[0];
-            changeAmount = (127 - changeAmount) / 128;
+            changeAmount = (127 - changeAmount) / 128; // from -1 to 1
 
             if (Real.RelativeMutation)
             {
-                _local *= (float)(1 + MutationRate * Math.Tanh(changeAmount)/10);
+                _local *= (float)(1 + MutationRate * Math.Tanh(changeAmount*2)/10);
             }
             else
             {

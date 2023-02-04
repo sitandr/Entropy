@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Irony.Parsing;
 
 namespace Rottytooth.Entropy
@@ -19,6 +20,7 @@ namespace Rottytooth.Entropy
 
         public static int Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             Dictionary<string, string> arguments = LoadParameters(args);
 
             if (inputPath == null)
@@ -51,7 +53,7 @@ namespace Rottytooth.Entropy
 
                 try
                 {
-                    mutRate = float.Parse(arguments["/m"], System.Globalization.CultureInfo.InvariantCulture);
+                    mutRate = float.Parse(arguments["/m"]);
                 }
                 catch (Exception ex)
                 {

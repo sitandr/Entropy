@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Irony.Parsing;
 
 namespace Rottytooth.Entropy
@@ -72,6 +73,15 @@ namespace Rottytooth.Entropy
                         BuildProgram(subNode, retProgram, constDeclarations);
                     }
                     retProgram.AppendLine(");");
+                    break;
+
+                case "roundStatement":
+                    retProgram.Append("((int)Math.Round(");
+                    foreach (ParseTreeNode subNode in currentNode.ChildNodes)
+                    {
+                        BuildProgram(subNode, retProgram, constDeclarations);
+                    }
+                    retProgram.AppendLine(".Value)).ToString()");
                     break;
 
                 case "ifStatement":
@@ -262,6 +272,7 @@ namespace Rottytooth.Entropy
         {
             StringBuilder header = new StringBuilder();
             header.AppendLine("using System;");
+            header.AppendLine("using System.Threading;");
             header.AppendLine("using Rottytooth.Entropy;");
             header.AppendLine();
             header.AppendLine("namespace " + namespaceID);
@@ -270,12 +281,13 @@ namespace Rottytooth.Entropy
             header.AppendLine("{");
             header.AppendLine("static void Main()");
             header.AppendLine("{");
+            header.AppendLine("\tThread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;");
 
             // here we are setting the resulting program to use the mutation rate that's currently set in Real since we know this was set by the compiler as a setting
             // kind of a round-about way of getting the value here, but is good enough for now
             // FIXME: let's make this less confusing
             header.AppendLine("\tRottytooth.Entropy.Real.MutationRate = " +
-                              Rottytooth.Entropy.Real.MutationRate.ToString(System.Globalization.CultureInfo.InvariantCulture)+ "F;");
+                              Rottytooth.Entropy.Real.MutationRate.ToString()+ "F;");
             
             if (Rottytooth.Entropy.Real.RelativeMutation)
             {
