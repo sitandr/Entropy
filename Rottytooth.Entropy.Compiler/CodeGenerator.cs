@@ -65,7 +65,7 @@ namespace Rottytooth.Entropy
                         stream.Seek(0, SeekOrigin.Begin);
                         stream.CopyTo(file);
                     }
-                    File.WriteAllText("One.runtimeconfig.json", @$"{{
+                    File.WriteAllText(outputFileName.Substring(outputFileName.Length-4, 4) +".runtimeconfig.json", @$"{{
                         ""runtimeOptions"": {{
                             ""tfm"": ""net{Environment.Version.Major}.{Environment.Version.Minor}"",
                             ""framework"": {{

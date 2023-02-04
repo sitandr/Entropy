@@ -76,6 +76,14 @@ Adds a newline. Using this command instead of adding `print "\n"` creates new li
 
 `round(<expression>)` returns **string** with rounded number. Usefull for printing without these extra digits. However, it can't be used for calculations (ha, that would be too easy).
 
+# Build
+
+Version .Net 7.0 allows compiling for platforms other than linux. Hovewever, now compiled programs will need dotnet to run:
+
+`dotnet publish Rottytooth.Entropy.Compiler -p:PublishSingleFile=true -c Release `
+`dotnet publish Rottytooth.Entropy.Compiler -r linux-x64 -p:PublishSingleFile=true -c Release `
+`dotnet <program>.exe`
+
 # More info
 
 See Entropy in action with Drunk Eliza: http://danieltemkin.com/DrunkEliza
