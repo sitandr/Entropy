@@ -76,6 +76,10 @@ Adds a newline. Using this command instead of adding `print "\n"` creates new li
 
 `round(<expression>)` returns **string** with rounded number. Usefull for printing without these extra digits. However, it can't be used for calculations (ha, that would be too easy).
 
+# Build
+
+This code works on .Net v4.8, so it should natively work on all modern windows systems. If you are interested in porting to Linux or updating to Net v7, [see net7 branch](/../../tree/net7). It is much clumsier, trickier and slower, so stay here if you are not.
+
 # More info
 
 See Entropy in action with Drunk Eliza: http://danieltemkin.com/DrunkEliza
