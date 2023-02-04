@@ -78,11 +78,23 @@ Adds a newline. Using this command instead of adding `print "\n"` creates new li
 
 # Build
 
-Version .Net 7.0 allows compiling for platforms other than linux. Hovewever, now compiled programs will need dotnet to run:
+(*unofficial*)
+
+Version .Net 7.0 allows compiling for platforms other than windows. Hovewever, now compiled programs will need dotnet to run:
 
 `dotnet publish Rottytooth.Entropy.Compiler -p:PublishSingleFile=true -c Release `
+
+Or, if you want to publish it for other system:
+
 `dotnet publish Rottytooth.Entropy.Compiler -r linux-x64 -p:PublishSingleFile=true -c Release `
+
+To run the program, type:
+
 `dotnet <program>.exe`
+
+I didn't managed yet to launch it without large dotnet lib. However, I hope can be possible (ran into a small accident error I don't know how to fix on mono).
+
+However, if you are not interested in cross-platform, it is recommended to use compiler based on .Net 4 (faster, lighter, works on Windows without any extra software).
 
 # More info
 
