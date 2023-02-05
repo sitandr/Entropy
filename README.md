@@ -88,11 +88,16 @@ Or, if you want to publish it for other system:
 
 `dotnet publish Rottytooth.Entropy.Compiler -r linux-x64 -p:PublishSingleFile=true -c Release `
 
+(probably the "PublishSingle" part may be ommited as it doesn't help; didn't managed to get it work yet)
+
+Then you can compile programs just as usual:
+`./entc.exe <options> <code>.en`
+
 To run the program, type:
 
 `dotnet <program>.exe`
 
-I didn't managed yet to launch it without large dotnet lib. However, I hope can be possible (ran into a small accident error I don't know how to fix on mono).
+I didn't managed yet to launch the compiled files without large dotnet lib. I hope can be possible (using files of already collected "PublishSingle" program; ran into a small accident error I don't know how to fix on mono).
 
 However, if you are not interested in cross-platform, it is recommended to use compiler based on .Net 4 (faster, lighter, works on Windows without any extra software).
 
