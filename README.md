@@ -62,6 +62,17 @@ if <condition>
 
 "Else" is not still supported.
 
+### while
+
+Аналогично `if`:
+
+```
+while <condition>
+[
+    <some action>
+]
+```
+
 ### print
 
 `print <expression>;` writes `object.toString()` to stdout.
